@@ -1,0 +1,134 @@
+{
+  "version": "0.1",
+  "catchAll": {
+    "onReceive": [],
+    "next": []
+  },
+  "startNode": "entry",
+  "nodes": [
+    {
+      "id": "669641bee5",
+      "name": "entry",
+      "onEnter": [
+        "startGame {}",
+        "getUserTag {\"name\":\"nickname\",\"into\":\"nickname\"}",
+        "say #!text-7jyHxa"
+      ],
+      "onReceive": null,
+      "next": [
+        {
+          "condition": "true",
+          "node": "ask-question"
+        }
+      ]
+    },
+    {
+      "id": "d5a607e4bc",
+      "name": "ask-question",
+      "next": [
+        {
+          "condition": "state.isCorrect === true",
+          "node": "good-answer"
+        },
+        {
+          "condition": "true",
+          "node": "bad-answer"
+        }
+      ],
+      "onEnter": [
+        "sendRandomQuestion {}"
+      ],
+      "onReceive": [
+        "validateAnswer {}"
+      ]
+    },
+    {
+      "id": "733711d593",
+      "name": "good-answer",
+      "next": [
+        {
+          "condition": "true",
+          "node": "next"
+        }
+      ],
+      "onEnter": [
+        "say #!text-~Y4F~Z"
+      ],
+      "onReceive": null
+    },
+    {
+      "id": "e2e5e2bdd1",
+      "name": "bad-answer",
+      "next": [
+        {
+          "condition": "true",
+          "node": "next"
+        }
+      ],
+      "onEnter": [
+        "say #!text-cTkerJ"
+      ],
+      "onReceive": null
+    },
+    {
+      "id": "9b39904f03",
+      "name": "next",
+      "next": [
+        {
+          "condition": "state.count >= 2",
+          "node": "over"
+        },
+        {
+          "condition": "true",
+          "node": "next-question"
+        }
+      ],
+      "onEnter": [],
+      "onReceive": null
+    },
+    {
+      "id": "c01af6e859",
+      "name": "over",
+      "next": [
+        {
+          "condition": "state.nickname==null",
+          "node": "ask-name"
+        },
+        {
+          "condition": "true",
+          "node": "END"
+        }
+      ],
+      "onEnter": [
+        "say #!text-zss1Nr"
+      ],
+      "onReceive": null
+    },
+    {
+      "id": "bb9e698ff6",
+      "name": "next-question",
+      "next": [
+        {
+          "condition": "true",
+          "node": "ask-question"
+        }
+      ],
+      "onEnter": [
+        "say #!text-kFIEdO"
+      ],
+      "onReceive": null
+    },
+    {
+      "id": "d1e2614e05",
+      "name": "ask-name",
+      "next": [],
+      "onEnter": [
+        "say #!text-Zftq1Y"
+      ],
+      "onReceive": [
+        "say #!text-FiImLJ",
+        "setUserTag {\"name\":\"nickname\",\"value\":\"{{event.text}}\"}"
+      ]
+    }
+  ]
+}
