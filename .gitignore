@@ -45,4 +45,5 @@ jspm_packages
 
 # *** Botpress specifics ***
 /_data
+/data
 /modules_config
